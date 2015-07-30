@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Zipcode">
+	<select id="S1" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DISTINCT 시군구 as sigungu 
+		FROM TBL_POST_ADDRESS 
+		WHERE 시도 = #{select_Providence}
+	</select>
+	<select id="S2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DISTINCT 읍면동 as dong
+		FROM TBL_POST_ADDRESS
+		WHERE 시도 = #{select_Providence}
+		AND 시군구 = #{select_sigungu}
+	</select>
+	<select id="S3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DISTINCT 
+		우편번호 as zipcode
+		,주소 as address
+		FROM TBL_POST_ADDRESS
+		WHERE 시도 = #{select_Providence}
+		AND 시군구 = #{select_sigungu}
+		AND 읍면동 = #{select_dong}
+	</select>
+</mapper>
+

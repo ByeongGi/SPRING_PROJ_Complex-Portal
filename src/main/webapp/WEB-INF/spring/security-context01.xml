@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/auth/login" access="permitAll"/>
+		<security:form-login login-page="/auth/login"
+		username-parameter="userid"
+		password-parameter="ueerpassword"
+		default-target-url="/admin/home"
+		/>
+		<security:logout 
+		invalidate-session="true" 
+		logout-success-url="/admin/home"
+		delete-cookies="JSESSIONID"
+		/>
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		
+	</security:http>
+
+	<!--security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="user" password="123" authorities="ROLE_USER" />
+				<security:user name="admin" password="123" authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager-->
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customAuthenticationProvider" />
+	</security:authentication-manager>
+
+	
+	<!-- DB 를 통한 유저 조회  -->
+	
+	<bean id="customAuthenticationProvider" class="com.portal.complex.security.CustomizeJdbcDaoImp">
+		<property name="dataSource" ref="dataSource" />
+		<property name="rolePrefix" value="" />
+		<property name="usersByUsernameQuery"
+			value="SELECT ID, PASSWORD, NAME FROM TBL_USER WHERE ID=?" />
+		<property name="authoritiesByUsernameQuery"
+			value="SELECT AUTH FROM TBL_USER WHERE ID=?" />
+		<property name="enableGroups" value="false" />
+	</bean>
+	
+	
+	
+	
+	
+
+</beans>

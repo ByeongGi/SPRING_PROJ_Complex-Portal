@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserManager">
+	<select id="info" resultType="java.util.HashMap">
+		SELECT ID, PASSWORD, NAME, POSTNUM, ADDRESS, ADDRDETAILS
+		FROM TBL_USER
+	</select>
+	<insert id="insert" parameterType="com.portal.complex.singupVo.SignupVo">
+  		INSERT INTO TBL_USER (ID, PASSWORD, NAME, POSTNUM, ADDRESS, ADDRDETAILS)
+  		VALUES (#{id}, #{password}, #{name}, #{post}, #{address}, #{addressDetail})
+	</insert>
+</mapper>

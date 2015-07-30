@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<!-- mybatis-config-base.xml mybatis 설정 파일  -->
+	<!-- mybatis-mapper  파일  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:config/spring/context/mybatis-config-base.xml" />
+		<property name="mapperLocations" 
+		    value="classpath*:config/spring/mapper/*.xml"/>
+	</bean>
+	
+    <!-- sqlSession  인터페이스를 대신 구현하는 sqlSession 구현 -->
+     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean> 
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="config.spring.mapper" />
+       <!-- optional unless there are multiple session factories defined -->
+       <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+   </bean>
+   
+	<!-- scan for mappers and let them be autowired -->
+	<!--  bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.syaku.bbs" />
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+	</bean -->
+	
+	
+	
+	<!-- PlatformTransactionManager Manager 데이터 베이스에 있는 자원과 연결하여 트랜잭션 준비함-->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Annotation Transaction Manager 트랜잭션 어노테이션 관리 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!--    해당 DTT 선언 xmlns:tx="http://www.springframework.org/schema/tx"-->
+	<!-- xsi:schemaLocation="http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"-->
+	
+	
+</beans>

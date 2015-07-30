@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name=".main" template="/WEB-INF/views/layouts/layout.jsp" >
+		<put-attribute name="header" value="/WEB-INF/views/layouts/header.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/layouts/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
+	</definition>
+	
+	
+	
+	<definition name="home" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/home.jsp" />
+	</definition>
+	
+	<definition name="/auth/login" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/sign/admin-login.jsp" />
+	</definition>
+	
+	<!-- Using Wildcard -->
+	
+	<definition name="/menu/*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/sign/{1}.jsp" />
+	</definition>
+	
+	
+	<definition name="/page/*" extends=".main">
+	<put-attribute name="main" value="/WEB-INF/views/page/{1}.jsp" />
+	</definition>
+	
+	<definition name="/board/*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/board/{1}.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	<definition name="/admin/home" template="/WEB-INF/views/admin/layouts/layout.jsp" >
+		<put-attribute name="header" value="/WEB-INF/views/admin/layouts/header.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/home.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/admin/layouts/footer.jsp" />
+	</definition>
+	
+	<definition name="/admin/UserManager/*" extends="/admin/home">
+		<put-attribute name="main" value="/WEB-INF/views/admin/UserManager/{1}.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+
+</tiles-definitions> 
