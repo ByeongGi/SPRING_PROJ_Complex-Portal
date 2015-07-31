@@ -36,6 +36,11 @@ public class BoardManagerDaoImp implements BoardManagerDao{
 		return ret;
 	}
 
+	@Override
+	public Object board_recordConut(String sqlId, Object dataMap) {
+		return sqlSession.selectOne(sqlId,dataMap);
+	}
+
 	
 	
 	

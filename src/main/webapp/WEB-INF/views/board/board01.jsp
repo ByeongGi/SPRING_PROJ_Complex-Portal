@@ -34,28 +34,36 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${data}" var="list">
+					<c:forEach items="${boardData}" var="list">
 						<tr>
 							<td>${list.nid}</td>
 							<td>${list.author}</td>
-							<td>${list.subject}</a></td>
+							<td><a>${list.subject}</a></td>
 							<td>${list.r_count}</td>
 							<td>${list.c_date}</td>
 						</tr>
 					</c:forEach>	
 					</tbody>
 				</table>
-
-				<div align="center">
-					<ul class="pagination">
-						<li><a href="#" onclick="javascript:pagination('1')">«</a></li>
-						<c:forEach var="iter" begin="1" end="${totalpage}">
-						<li id="pagination${iter}"><a href="#" onclick="javascript:pagination('${iter}')"><b>${iter}</b></a></li>
-						</c:forEach>
-						<li><a href="#" onclick="javascript:pagination('${totalpage}')">»</a></li>
-					</ul>
+				
+				<div>
+					<select>
+						<option>10</option>
+						<option>20</option>
+						<option>50</option>
+					</select>	
 				</div>
 				
+				<div align="center">
+					<ul class="pagination">
+						<li><a href="/board/board01?currentpage=${pagingData.prev_pageno}" >«</a></li>
+						<c:forEach var="iter" begin="${pagingData.page_sno}" end="${pagingData.page_eno}">
+						<li id="pagination${list}"><a href="/board/board01?currentpage=${iter}" ><b>${iter}</b></a></li>
+						</c:forEach>
+						<li><a href="/board/board01?currentpage=${pagingData.next_pageno}">»</a></li>
+					</ul>
+				</div>
+								
 			</div>
 		</div>		
 	</div>

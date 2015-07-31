@@ -1,5 +1,6 @@
 package com.portal.complex.ManagerContoller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -52,13 +55,20 @@ public class ManagerController {
 	}
 	
 	
-	@RequestMapping(value = "/board/{boardName}")
-	public ModelAndView boardController(@PathVariable String boardName,
-			ModelAndView modelandView){
-		List<BoardVo> boarddata = (List<BoardVo>) service_board.board_list("Board.SELECT","");
+	@RequestMapping(value = "/board/{boardName}" ,method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardController(@PathVariable String boardName
+			,ModelAndView modelandView,@RequestParam(required=false,value="currentpage") Integer currentpage){
+		if (currentpage ==null) {
+			currentpage=1;
+		}
+	
+		Map<Object, Object> board = (Map<Object, Object> )service_board.board_list("Board.sss",currentpage);
+		
 		String url = "";
 		if("board01".equals(boardName))			url = "/board/board01";
-		modelandView.addObject("data",boarddata);
+		
+		modelandView.addObject("boardData",board.get("boardData"));
+		modelandView.addObject("pagingData",board.get("pagingData"));
 		modelandView.setViewName(url);
 		System.out.println(url);
 		return modelandView;
