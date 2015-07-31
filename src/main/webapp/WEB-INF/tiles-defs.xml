@@ -20,6 +20,9 @@
 	</definition>
 	
 	<!-- Using Wildcard -->
+	<definition name="/boardService/*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/board/{1}.jsp" />
+	</definition>
 	
 	<definition name="/menu/*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/sign/{1}.jsp" />

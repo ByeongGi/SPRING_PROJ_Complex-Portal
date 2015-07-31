@@ -38,7 +38,7 @@
 						<tr>
 							<td>${list.nid}</td>
 							<td>${list.author}</td>
-							<td><a>${list.subject}</a></td>
+							<td><a href="/boardService/read/${list.nid}" >${list.subject}</a></td>
 							<td>${list.r_count}</td>
 							<td>${list.c_date}</td>
 						</tr>

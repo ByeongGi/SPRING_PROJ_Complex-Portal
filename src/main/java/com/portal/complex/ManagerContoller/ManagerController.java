@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import oracle.net.aso.b;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,20 +60,76 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/board/{boardName}" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardController(@PathVariable String boardName
-			,ModelAndView modelandView,@RequestParam(required=false,value="currentpage") Integer currentpage){
+			,ModelAndView modelandView
+			,@RequestParam(required=false,value="currentpage") Integer currentpage){
 		if (currentpage ==null) {
 			currentpage=1;
 		}
 	
-		Map<Object, Object> board = (Map<Object, Object> )service_board.board_list("Board.sss",currentpage);
 		
 		String url = "";
-		if("board01".equals(boardName))			url = "/board/board01";
+		if("board01".equals(boardName))	{
+			url = "/board/board01";
+			Map<Object, Object> board = (Map<Object, Object> )service_board.board_list("Board.sss",currentpage);
+			modelandView.addObject("boardData",board.get("boardData"));
+			modelandView.addObject("pagingData",board.get("pagingData"));
+			modelandView.setViewName(url);
+		}
 		
-		modelandView.addObject("boardData",board.get("boardData"));
-		modelandView.addObject("pagingData",board.get("pagingData"));
+		System.out.println(url);
+		return modelandView;
+		
+	}
+	
+	
+	@RequestMapping(value = "/boardService/{command}/{NID}" ,method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardServiceController(@PathVariable int NID
+			,@PathVariable String command
+			,ModelAndView modelandView
+			,@ModelAttribute BoardVo bvo){
+		
+		String url = "";
+		 if ("read".equals(command)){
+			url = "/boardService/read";
+			BoardVo vo=(BoardVo) service_board.board_read("Board.READ", NID);
+			modelandView.addObject("boarddata",vo);
+		} else if ("insert".equals(command)) {
+			url = "/boardService/insert";
+			// service_board.board_insert(sqlId, dataMap);
+		} else if ("update".equals(command)){
+			BoardVo vo=(BoardVo) service_board.board_read("Board.READ", NID);
+			modelandView.addObject("boarddata",vo);
+			url = "/boardService/update";
+		} else if ("/board/delete".equals(command)){
+			url = "/boardService/delete";
+		}
 		modelandView.setViewName(url);
 		System.out.println(url);
+		return modelandView;
+		
+	}
+	
+	
+	@RequestMapping(value = "/boardSucess/{command}" ,method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView board(@PathVariable String command
+			,ModelAndView modelandView
+			,@ModelAttribute BoardVo bvo){
+		
+		String url = "";
+		if ("insert".equals(command)) {
+			url = "/boardSucess/insert";
+			//service_board.board_insert("", bvo);
+		} else if ("update".equals(command)){
+			url = "/boardSucess/update";
+			//service_board.board_update(sqlId, dataMap);
+		} else if ("/board/delete".equals(command)){
+			url = "/boardSucess/delete";
+			// service_board.board_delete(sqlId, dataMap);
+		}
+		
+		modelandView.setViewName(url);
+		System.out.println(url);
+		
 		return modelandView;
 		
 	}

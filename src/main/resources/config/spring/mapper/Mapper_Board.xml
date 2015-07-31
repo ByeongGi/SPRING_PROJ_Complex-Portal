@@ -22,5 +22,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		WHERE RNUM >=#{record_Start_no}
   		]]>
 	</select>
+	<select id="READ" parameterType="int" resultType="com.portal.complex.boardVo.BoardVo">
+		SELECT * 
+		FROM TBL_BOARD 
+		WHERE NID = #{NID}
+	</select>
+	<insert id="INSERT" parameterType="com.portal.complex.boardVo.BoardVo">
+			
+	</insert>
+	<update id="UPDATE">
+		
+	</update>
 	
 </mapper>

@@ -41,6 +41,11 @@ public class BoardManagerDaoImp implements BoardManagerDao{
 		return sqlSession.selectOne(sqlId,dataMap);
 	}
 
+	@Override
+	public Object board_read(String sqlId, Object dataMap) {
+		return sqlSession.selectOne(sqlId, dataMap);
+	}
+
 	
 	
 	
