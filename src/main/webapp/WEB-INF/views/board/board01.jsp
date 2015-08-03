@@ -22,7 +22,20 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-			
+				<!-- search_bar -->
+				<form action="/board/Search"  class="form-inline" role="form" method="POST">
+					<div class="form-group">
+						<select name="keyword">
+							<option value ="AUTHOR"><span> 글쓴이</span></option>
+							<option value ="SUBJECT"><span> 제목 </span></option>
+						</select>
+					
+						<input type="text" class="form-control" id="search_bar" name="searchWord" placeholder="검색">
+					</div>
+					<button type="submit" class="btn btn-warning btn-md">SEARCH
+					</button>
+				</form>
+				
 				<table class="table table-striped">
 					<thead>
 						<tr>

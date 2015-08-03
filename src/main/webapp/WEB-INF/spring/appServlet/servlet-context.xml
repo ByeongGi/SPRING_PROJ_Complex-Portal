@@ -31,8 +31,11 @@
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions" value="/WEB-INF/tiles-defs.xml" />
+		<beans:property name="preparerFactoryClass" 
+			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory">
+		</beans:property>
 	</beans:bean>
-	
+	<beans:bean id="menuPreparer" class="com.portal.complex.meunbarController.MenuPreparer" />
 		<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<!--beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 

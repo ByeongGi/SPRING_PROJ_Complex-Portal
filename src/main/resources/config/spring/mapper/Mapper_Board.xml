@@ -3,14 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Board">
+
 	<select id="SELECT" parameterType="java.util.HashMap" resultType="com.portal.complex.boardVo.BoardVo">
 		SELECT * 
 		FROM TBL_BOARD
 	</select>
+	
 	<select id="TOTALRECOND" resultType="int">
 		SELECT COUNT(NID) AS TOTALRECOND 
 		FROM TBL_BOARD
 	</select>
+	
 	<select id="sss" parameterType="java.util.HashMap" resultType="com.portal.complex.boardVo.BoardVo">
 		<![CDATA[ 
 		SELECT *
@@ -33,5 +36,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="UPDATE">
 		
 	</update>
+	
+	
+	<select id="SEARCH_TOTALRECOND" resultType="int" parameterType="java.util.HashMap">
+		SELECT COUNT(NID) AS TOTALRECOND 
+		FROM TBL_BOARD
+		where 1 = 1
+		<if test="keyword != null">
+			AND ${keyword} LIKE '%${searchWord}%'
+		</if>
+	</select>
+	
+	
+	<sql id="SEARCH01"> 
+		SELECT * FROM TBL_BOARD
+		where 1 = 1
+		AND ${keyword} LIKE '%${searchWord}%'
+		ORDER BY NID DESC 
+	</sql>
+	
+	
+	
+	<select id="SEARCH" parameterType="java.util.HashMap" resultType="com.portal.complex.boardVo.BoardVo">
+		<![CDATA[ 
+		SELECT *
+  			FROM (SELECT ROWNUM AS RNUM, Z.* 
+    			FROM (SELECT * FROM TBL_BOARD
+						where 1 = 1
+						AND ${keyword} LIKE '%${searchWord}%'
+						ORDER BY NID DESC) Z 
+    			WHERE ROWNUM <=#{record_end_no}) 
+  		WHERE RNUM >=#{record_Start_no}
+  		]]>
+	</select>
 	
 </mapper>

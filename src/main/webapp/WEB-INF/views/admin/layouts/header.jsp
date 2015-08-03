@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="com.portal.complex.security.UserInfo" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +16,18 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-<sec:authorize access="isAuthenticated()">
-	<a href="<c:url value="/logout" />">Log Out</a>
-</sec:authorize>
+<%
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	Object principal = auth.getPrincipal();
+	String userName = "";
+	String name = "";
+	String password ="";
+	if (principal != null && principal instanceof UserInfo) {
+		userName = ((UserInfo) principal).getId();
+		name = ((UserInfo) principal).getName();
+		password = ((UserInfo) principal).getPassword();
+	}
+%>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -45,7 +57,10 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					
+					<sec:authorize access="isAuthenticated()">
+						<%=name%>	님 반갑습니다<br/>
+					<li><a href="<c:url value="/logout" />">Log Out</a><li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>

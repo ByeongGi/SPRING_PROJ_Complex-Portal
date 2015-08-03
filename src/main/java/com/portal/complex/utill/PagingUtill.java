@@ -23,8 +23,8 @@ public class PagingUtill {
 
 
 
-	public Map<String, Integer> page_dataMap(){
-		Map<String, Integer> paging_datamap= new HashMap<String, Integer>(); // 페이징에 필요한 데이터를 담는다.
+	public Map<String, Object> page_dataMap(){
+		Map<String, Object> paging_datamap= new HashMap<String, Object>(); // 페이징에 필요한 데이터를 담는다.
 		
 		int record_end_no=pageno*page_per_record_cnt; // 현재 페이지의 레코드의 끝
 		int record_Start_no=record_end_no -(page_per_record_cnt -1); // 현재 페이지의 레코드의 시작

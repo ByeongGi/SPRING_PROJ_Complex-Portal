@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -111,7 +112,7 @@ public class ManagerController {
 	
 	
 	@RequestMapping(value = "/boardSucess/{command}" ,method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView board(@PathVariable String command
+	public ModelAndView boardCRLD(@PathVariable String command
 			,ModelAndView modelandView
 			,@ModelAttribute BoardVo bvo){
 		
@@ -129,11 +130,43 @@ public class ManagerController {
 		
 		modelandView.setViewName(url);
 		System.out.println(url);
-		
 		return modelandView;
 		
 	}
 	
+	
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "/board/Search" ,method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody ModelAndView boardSearch(ModelAndView modelandView
+			,@RequestParam(required=false,value="currentpage") Integer currentpage
+			,@RequestParam(required=false,value="keyword") String keyword
+			,@RequestParam(required=false,value="searchWord") String searchWord){
+		Map<String, Object> paramMap= new HashMap<String, Object>();
+		if (currentpage ==null) currentpage=1;
+		
+		System.out.println("currentpage : "+currentpage);
+		System.out.println("keyword : "+keyword);
+		System.out.println("searchWord : "+searchWord);
+		
+		paramMap.put("currentpage", currentpage);
+		paramMap.put("keyword", keyword);
+		paramMap.put("searchWord", searchWord);
+		
+		String url = "";
+		
+		if ("keyword"!=null) {
+			url = "/board/board01";
+			Map<Object, Object> board = (Map<Object, Object> )service_board.board_search("Board.SEARCH",paramMap);
+			modelandView.addObject("boardData",board.get("boardData"));
+			modelandView.addObject("pagingData",board.get("pagingData"));
+			modelandView.setViewName(url);
+		} 
+		
+		modelandView.setViewName(url);
+		System.out.println(url);
+		return modelandView;
+		
+	}
 	
 
 }
