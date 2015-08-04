@@ -58,8 +58,8 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize access="isAuthenticated()">
-						<%=name%>	님 반갑습니다<br/>
-					<li><a href="<c:url value="/logout" />">Log Out</a><li>
+					<li><a><span class="glyphicon glyphicon-user"></span>권한 등급 : ${UID} , ${UNAME} 님 </a></li>
+					<li><a href="/j_spring_security_logout" /><span>Log Out</span></a><li>
 					</sec:authorize>
 				</ul>
 			</div>

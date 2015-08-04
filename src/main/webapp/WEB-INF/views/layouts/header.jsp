@@ -76,8 +76,8 @@
 					<li><a href="/menu/log-in"><span class="glyphicon glyphicon-log-in"></span> Log-in</a></li>				
 					</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
-					<li><a href="/menu/sign-up"><span class="glyphicon glyphicon-user"></span> <%=name%> 님 </a></li>
-					<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Log-out</a></li>	
+					<li><a href="/menu/sign-up"><span class="glyphicon glyphicon-user"></span> ${UID} , ${UNAME} 님 </a></li>
+					<li><a href="/j_spring_security_logout"><span class="glyphicon glyphicon-log-in"></span> Log-out</a></li>	
 					</sec:authorize>					
 				</ul>
 			</div>

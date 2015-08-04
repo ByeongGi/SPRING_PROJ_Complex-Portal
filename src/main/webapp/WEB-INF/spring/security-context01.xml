@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<security:http use-expressions="true">
+	<security:http use-expressions="true"  pattern="/admin/**" >
 		<security:intercept-url pattern="/auth/login" access="permitAll"/>
 		<security:form-login login-page="/auth/login"
 		username-parameter="userid"
@@ -14,21 +14,28 @@
 		/>
 		<security:logout 
 		invalidate-session="true" 
-		logout-success-url="/admin/home"
 		delete-cookies="JSESSIONID"
+		logout-success-url="/admin/home"
 		/>
-		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />	
 	</security:http>
-
-	<!--security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="user" password="123" authorities="ROLE_USER" />
-				<security:user name="admin" password="123" authorities="ROLE_ADMIN" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager-->
+	
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/menu/log-in" access="permitAll"/>
+		<security:form-login login-page="/menu/log-in"
+		username-parameter="userid"
+		password-parameter="ueerpassword"
+		default-target-url="/"
+		/>
+		<security:logout 
+		invalidate-session="true" 
+		delete-cookies="JSESSIONID"
+		logout-success-url="/"
+		/>
+	</security:http>
+	
+	
+	
 
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="customAuthenticationProvider" />

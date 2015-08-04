@@ -11,26 +11,21 @@
 <!-- body -->
 	<div class="container">
 		<div class="panel panel-info">
-			<div class="panel-heading"><h3>Log-in Form - normal's</h3></div>
+			<div class="panel-heading"><h3>USER Mode - (Log-in Form)</h3></div>
 			<div class="panel-body">
-				<form class="form-horizontal" role="form" action="/SignUser" method="post">
+				<form class="form-horizontal" role="form" action="<c:url value ="j_spring_security_check" />" method="post">
 					<div class="form-group" id="id"	>
 					<input type="hidden" name="command" value="smarts">
 						<label class="control-label col-sm-3" for="id">ID:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="id" placeholder="Enter id" value="">
-							<span id="id-icon-remove" class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span id="id-icon-ok" class="glyphicon glyphicon-ok form-control-feedback"></span>
-							<p id="id-message"></p>
+							<input type="text" class="form-control" id = "userid" name="userid" placeholder="Enter id">
+							
 						</div>
 					</div>
 					<div class="form-group" id="password" >
 						<label class="control-label col-sm-3" for="password">Password:</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" name="password" placeholder="Enter password" value=>
-							<span id="password-icon-remove" class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span id="password-icon-ok" class="glyphicon glyphicon-ok form-control-feedback"></span>
-							<p id="password-message"></p>
+							<input type="password" class="form-control" id = "ueerpassword" name="ueerpassword" placeholder="Enter password">
 						</div>
 					</div>
 					<div class="form-group">
