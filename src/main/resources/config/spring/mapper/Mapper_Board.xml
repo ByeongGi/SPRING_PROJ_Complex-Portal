@@ -29,14 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM TBL_BOARD 
 		WHERE NID = #{NID}
-	</select>
-	<insert id="INSERT" parameterType="com.portal.complex.boardVo.BoardVo">
-			
-	</insert>
-	<update id="UPDATE">
-		
-	</update>
-	
+	</select>	
 	
 	<select id="SEARCH_TOTALRECOND" resultType="int" parameterType="java.util.HashMap">
 		SELECT COUNT(NID) AS TOTALRECOND 
@@ -69,5 +62,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		WHERE RNUM >=#{record_Start_no}
   		]]>
 	</select>
+	
+	<insert id="INSERT" parameterType="com.portal.complex.boardVo.BoardVo">
+	INSERT INTO 
+	TBL_BOARD (NID, AUTHOR, SUBJECT, CONTENT) 
+	VALUES (#{nid}, #{author}, #{subject}, #{content})			
+	</insert>
+
+	<update id="UPDATE">
+	UPDATE TBL_BOARD SET SUBJECT = #{subject}, CONTENT = #{content} 
+	WHERE NID = #{nid}
+	</update>
+	
+	<delete id="DELETE" parameterType="com.portal.complex.boardVo.BoardVo">
+	DELETE 
+	FROM TBL_BOARD 
+	WHERE NID = #{nid}
+	</delete>
+	
+	
 	
 </mapper>

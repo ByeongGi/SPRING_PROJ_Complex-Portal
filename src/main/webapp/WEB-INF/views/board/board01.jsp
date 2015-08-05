@@ -17,7 +17,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3>Complex-Portal User List
-				<button id="boardwrite" type="button" class="btn btn-primary" onclick="javascript:goWriteForm();">
+				<button id="boardwrite" type="button" class="btn btn-primary" onclick="location.href='/boardService/insert'">
 				<span class="glyphicon glyphicon-plus"></span> add memo</button>
 				</h3>
 			</div>

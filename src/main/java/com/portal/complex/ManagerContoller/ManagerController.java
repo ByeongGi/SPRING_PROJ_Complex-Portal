@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javassist.tools.framedump;
 import oracle.net.aso.b;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,8 @@ public class ManagerController {
 	}
 	
 	
+	
+	// 게시판 list 출력 
 	@RequestMapping(value = "/board/{boardName}" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardController(@PathVariable String boardName
 			,ModelAndView modelandView
@@ -75,7 +78,7 @@ public class ManagerController {
 			modelandView.addObject("boardData",board.get("boardData"));
 			modelandView.addObject("pagingData",board.get("pagingData"));
 			modelandView.setViewName(url);
-		}
+		} 
 		
 		System.out.println(url);
 		return modelandView;
@@ -83,6 +86,7 @@ public class ManagerController {
 	}
 	
 	
+	// 게시판 서비스별 화면 분기 
 	@RequestMapping(value = "/boardService/{command}/{NID}" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardServiceController(@PathVariable int NID
 			,@PathVariable String command
@@ -94,16 +98,29 @@ public class ManagerController {
 			url = "/boardService/read";
 			BoardVo vo=(BoardVo) service_board.board_read("Board.READ", NID);
 			modelandView.addObject("boarddata",vo);
-		} else if ("insert".equals(command)) {
-			url = "/boardService/insert";
-			// service_board.board_insert(sqlId, dataMap);
 		} else if ("update".equals(command)){
 			BoardVo vo=(BoardVo) service_board.board_read("Board.READ", NID);
 			modelandView.addObject("boarddata",vo);
 			url = "/boardService/update";
 		} else if ("/board/delete".equals(command)){
 			url = "/boardService/delete";
-		}
+		} 
+		modelandView.setViewName(url);
+		System.out.println(url);
+		return modelandView;
+		
+	}
+	
+	// 게시판 서비스별 화면 분기 
+	@RequestMapping(value = "/boardService/{command}" ,method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardServiceController(@PathVariable String command
+			,ModelAndView modelandView
+			,@ModelAttribute BoardVo bvo){
+		
+		String url = "";
+		 if ("insert".equals(command)) {
+			url = "/boardService/insert";
+		} 
 		modelandView.setViewName(url);
 		System.out.println(url);
 		return modelandView;
@@ -111,21 +128,27 @@ public class ManagerController {
 	}
 	
 	
+	
+	// 게시판 CRLD 구현부 
 	@RequestMapping(value = "/boardSucess/{command}" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardCRLD(@PathVariable String command
+			,@RequestParam(required=false) Integer nid
 			,ModelAndView modelandView
 			,@ModelAttribute BoardVo bvo){
-		
 		String url = "";
 		if ("insert".equals(command)) {
-			url = "/boardSucess/insert";
-			//service_board.board_insert("", bvo);
+			System.out.println("=================insert ==========");
+			service_board.board_insert("Board.INSERT", bvo);
+			url = "/board/sucess";	
+			
 		} else if ("update".equals(command)){
-			url = "/boardSucess/update";
-			//service_board.board_update(sqlId, dataMap);
-		} else if ("/board/delete".equals(command)){
-			url = "/boardSucess/delete";
-			// service_board.board_delete(sqlId, dataMap);
+			service_board.board_update("Board.UPDATE", bvo);
+			url = "/board/sucess";
+		} else if ("delete".equals(command)){
+			System.out.println("========DELETE====="+bvo.getNid()+"=================="+nid);
+			bvo.setNid(nid);
+			service_board.board_delete("Board.DELETE", bvo);
+			url = "/board/sucess";
 		}
 		
 		modelandView.setViewName(url);

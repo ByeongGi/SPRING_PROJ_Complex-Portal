@@ -7,9 +7,7 @@
 <title>Complex Portal Index</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src=<c:url value ='/resources/ckeditor/ckeditor.js'/>></script>
 </head>
 <body>
 <!-- body -->
@@ -19,11 +17,7 @@
 				<h3>Board Read - dummer's</h3></div>
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" action="" method="post">
-					<input type="hidden" name="command" value="update">
-					<input type="hidden" name="currentpage" value="">
-					
-					
+				<form class="form-horizontal" role="form" action="/boardSucess/update" method="post" >	
 					<div class="form-group" id="nid" >
 						<label class="control-label col-sm-3" for="nid">Number:</label>
 						<div class="col-sm-9">
@@ -33,7 +27,7 @@
 					<div class="form-group" id="author"	>
 						<label class="control-label col-sm-3" for="author">Author:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="author" value="${boarddata.author}" readonly>
+							<input type="text" class="form-control"  name="author" value="${boarddata.author}" readonly>
 						</div>
 					</div>				
 					<div class="form-group" id="subject" >
@@ -63,16 +57,22 @@
 					<div class="form-group" id="content" >
 						<label class="control-label col-sm-3" for="content">Content:</label>
 						<div class="col-sm-9">
-							<textarea class="form-control" rows="5" name="content" id="content">${boarddata.content}</textarea>							
+							<textarea  id="editor1" name="content" rows="10" cols="40">
+								${boarddata.content} 
+							</textarea>
+							<script>
+								CKEDITOR.replace("editor1");
+							</script>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group">					
 						<div class="col-sm-offset-3 col-sm-3">
-							<button id="form-update" type="submit" class="btn btn-success btn-block" onclick="javascript:goUpdate()" >Update</button>
+							<button id="form-update" type="submit" class="btn btn-success btn-block" >Update</button>
 						</div>
 						<div class="col-sm-offset-3 col-sm-3">
-							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="javascript:goDelete()" >Delete</button>
+							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="location.href='/boardSucess/delete?nid=${boarddata.nid}'" >Delete</button>
 						</div>
+						
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
@@ -88,24 +88,20 @@
 </body>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	var user = '${UID}';
+	var author = '${boarddata.author}';
 	
-	var goUpdate = function() {
-		location.href = "/board/board-dummers-update.jsp";
-	};
-
-	var goDelete = function() {
-		var res = confirm("really delete ???");
-		if (res == true) {
-			location.href = "/DummersBoard?command=delete&currentpage=${currentpage}&nid=${boarddata.nid}";
-		}
-	};
-
-	var goBack = function() {
-		//history.go(-1);
-		//history.back();
-		location.href = "/DummersBoard?command=list&currentpage=";
-	};
-	
+	if (user==author) {
+		//alert("글쓴이와 현재 사용자는 일치한다!");
+		$("#form-update").prop("disabled", false);
+		$("#form-delete").prop("disabled", false);
+	} else {
+		// alert("글쓴이와 현재 사용자는 일치하지 않는다!");
+		$("#form-update").prop("disabled", true);
+		$("#form-delete").prop("disabled", true);
+	}
+});
 </script>
 
 	

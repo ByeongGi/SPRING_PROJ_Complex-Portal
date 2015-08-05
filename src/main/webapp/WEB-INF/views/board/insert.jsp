@@ -7,9 +7,7 @@
 <title>Complex Portal Index</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src=<c:url value ='/resources/ckeditor/ckeditor.js'/>></script>
 </head>
 <body>
 
@@ -17,15 +15,14 @@
 	<div class="container">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h3>Board Insert - dummer's</h3></div>
+				<h3>Board Insert</h3></div>
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" action="" method="post">
-					<input type="hidden" name="command" value="insert">
+				<form class="form-horizontal" role="form" action="/boardSucess/insert" method="post">
 					<div class="form-group" id="author"	>
 						<label class="control-label col-sm-3" for="author">Author:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="inputAuthor" name="author" value="" readonly>
+							<input type="text" class="form-control" id="inputAuthor" name="author" value="${UID}" readonly>
 						</div>
 					</div>				
 					<div class="form-group" id="subject" >
@@ -37,12 +34,16 @@
 					<div class="form-group" id="content" >
 						<label class="control-label col-sm-3" for="content">Content:</label>
 						<div class="col-sm-9">
-							<textarea class="form-control" rows="5" id="content" name="content" value=""></textarea>							
+							<textarea class="form-control" id="editor1" name="content" rows="10" cols="40"> 
+							</textarea>
+							<script>
+								CKEDITOR.replace("editor1");
+							</script>							
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-3">
-							<button id="form-update" type="submit" class="btn btn-success btn-block" onclick="javascript:return goInsert()" >Insert</button>
+							<button id="form-update" type="submit" class="btn btn-success btn-block" >Insert</button>
 						</div>
 						<div class="col-sm-offset-3 col-sm-3">
 							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="javascript:goCancel()" >Cancel</button>
@@ -50,7 +51,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
-							<button id="form-back" type="button" class="btn btn-primary btn-block" onclick="javascript:goBack()" >Back to list</button>
+							<button id="form-back" type="button" class="btn btn-primary btn-block" onclick="location.href='/board/board01'" >Back to list</button>
 						</div>
 					</div>
 				</form>				

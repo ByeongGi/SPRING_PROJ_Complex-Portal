@@ -17,7 +17,6 @@
 			<div class="panel-body">
 
 				<form class="form-horizontal" role="form" action="" method="post">
-					<input type="hidden" name="currentpage" value="">
 					<div class="form-group" id="nid"	>
 						<label class="control-label col-sm-3" for="nid">Number:</label>
 						<div class="col-sm-9">
@@ -27,7 +26,7 @@
 					<div class="form-group" id="author"	>
 						<label class="control-label col-sm-3" for="author">Author:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="author" value="${boarddata.author}" readonly>
+							<input type="text" class="form-control"  name="author" value="${boarddata.author}" readonly>
 						</div>
 					</div>				
 					<div class="form-group" id="subject" >
@@ -57,7 +56,9 @@
 					<div class="form-group" id="content" >
 						<label class="control-label col-sm-3" for="content">Content:</label>
 						<div class="col-sm-9">
-							<textarea class="form-control" rows="5" name="content" id="content" readonly>${boarddata.content}</textarea>							
+							<div class="well">
+								${boarddata.content}
+							</div>						
 						</div>
 					</div>
 					<div class="form-group">
@@ -65,7 +66,7 @@
 							<button id="form-update" type="button" class="btn btn-success btn-block" onclick="location.href='/boardService/update/${boarddata.nid}'">Update</button>
 						</div>
 						<div class="col-sm-offset-3 col-sm-3">
-							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="location.href='/boardService/delete/${boarddata.nid}'" >Delete</button>
+							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="location.href='/boardSucess/delete?nid=${boarddata.nid}'" >Delete</button>
 						</div>
 					</div>
 					<div class="form-group">
@@ -78,6 +79,21 @@
 			</div>
 		</div>		
 	</div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	var user = '${UID}';
+	var author = '${boarddata.author}';
+	
+	if (user==author) {
+		//alert("글쓴이와 현재 사용자는 일치한다!");
+		$("#form-update").prop("disabled", false);
+		$("#form-delete").prop("disabled", false);
+	} else {
+		// alert("글쓴이와 현재 사용자는 일치하지 않는다!");
+		$("#form-update").prop("disabled", true);
+		$("#form-delete").prop("disabled", true);
+	}
+});
+</script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.portal.complex.boardManager.Dao.BoardManagerDao;
+import com.portal.complex.boardVo.BoardVo;
 import com.portal.complex.utill.PagingUtill;
 
 @Service
@@ -45,7 +46,11 @@ public class BoardManagerServiceImp implements BoardManagerService{
 
 	@Override
 	public Object board_insert(String sqlId,Object dataMap) {
-		int ret = (int) dao.board_insert(sqlId, dataMap);
+		// NID=총 레코드 + 1 
+		int total_record = (int) dao.board_recordConut("Board.TOTALRECOND", "");
+		BoardVo vo = (BoardVo) dataMap;
+		vo.setNid(total_record+1);
+		int ret = (int) dao.board_insert(sqlId, vo);
 		return ret;
 	}
 
