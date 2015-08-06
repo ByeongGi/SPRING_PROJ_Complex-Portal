@@ -80,6 +80,20 @@
 			</div>
 		</div>		
 	</div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	var user = '${UID}';
+	if (user=='') {
+		
+		$("#boardwrite").prop("disabled", true);
+		
+	} else {
+		
+		$("#boardwrite").prop("disabled", false);
+		
+		
+	}
+});
+</script>
 </body>
 </html>

@@ -62,6 +62,7 @@
 							</textarea>
 							<script>
 								CKEDITOR.replace("editor1");
+								
 							</script>
 						</div>
 					</div>

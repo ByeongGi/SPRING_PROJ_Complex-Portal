@@ -221,6 +221,16 @@
 			<artifactId>javassist</artifactId>
 			<version>3.18.1-GA</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>3.3.0</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
