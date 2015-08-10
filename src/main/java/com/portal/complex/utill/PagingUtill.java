@@ -27,7 +27,9 @@ public class PagingUtill {
 		Map<String, Object> paging_datamap= new HashMap<String, Object>(); // 페이징에 필요한 데이터를 담는다.
 		
 		int record_end_no=pageno*page_per_record_cnt; // 현재 페이지의 레코드의 끝
-		int record_Start_no=record_end_no -(page_per_record_cnt -1); // 현재 페이지의 레코드의 시작
+		// int record_Start_no=record_end_no -(page_per_record_cnt -1); // 현재 페이지의 레코드의 시작 Oracle DB 기준 
+		int record_Start_no=record_end_no -(page_per_record_cnt); // 현재 페이지의 레코드의 시작 Maria DB 기준 
+		
 		if(record_end_no>total_record){
 			record_end_no = total_record;
 		}
@@ -76,8 +78,8 @@ public class PagingUtill {
 		}
 		paging_datamap.put("prev_pageno",prev_pageno);
 		paging_datamap.put("next_pageno",next_pageno);
-		System.out.println("======/이전 그룹페이지 번호/====="+prev_pageno+"=========");
-		System.out.println("======/다음 그룹 페이지 번호/====="+next_pageno+"=========");
+		// System.out.println("======/이전 그룹페이지 번호/====="+prev_pageno+"=========");
+		// System.out.println("======/다음 그룹 페이지 번호/====="+next_pageno+"=========");
 		
 		return paging_datamap;
 	}

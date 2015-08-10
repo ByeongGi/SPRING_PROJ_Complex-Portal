@@ -33,7 +33,7 @@
 					<div class="form-group" id="subject" >
 						<label class="control-label col-sm-3" for="subject">Subject:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="subject" value="${boarddata.subject}">
+							<input type="text" class="form-control" name="subject" value="${boarddata.subject}" required>
 						</div>
 					</div>
 					<div class="form-group" id="c-date" >

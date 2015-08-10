@@ -15,7 +15,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%
+<%-- <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	Object principal = auth.getPrincipal();
 	String userName = "";
@@ -26,7 +26,7 @@
 		name = ((UserInfo) principal).getName();
 		password = ((UserInfo) principal).getPassword();
 	}
-%>
+%> --%>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">

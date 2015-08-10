@@ -28,7 +28,7 @@
 					<div class="form-group" id="subject" >
 						<label class="control-label col-sm-3" for="subject">Subject:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="inputSubject" name="subject" value="">
+							<input type="text" class="form-control" id="inputSubject" name="subject" value="" required>
 						</div>
 					</div>
 					<div class="form-group" id="content" >
@@ -43,7 +43,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-3">
-							<button id="form-update" type="submit" class="btn btn-success btn-block" >Insert</button>
+							<button id="form-update" type="submit" class="btn btn-success btn-block" onclick="goInsert()">Insert</button>
 						</div>
 						<div class="col-sm-offset-3 col-sm-3">
 							<button id="form-delete" type="button" class="btn btn-danger btn-block" onclick="javascript:goCancel()" >Cancel</button>
@@ -63,6 +63,9 @@
 </body>
 
 <script type="text/javascript">
+
+
+
 	
 	var goInsert = function() {
 		//location.href = "/board/board-dummers-update.jsp";
@@ -81,6 +84,10 @@
 			alert("제목이 필요해 !!!");
 			return false;
 		}
+		
+		
+		
+		
 		
 		return true;
 	};

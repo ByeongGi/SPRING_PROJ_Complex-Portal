@@ -1,4 +1,4 @@
-package com.portal.complex.boardVo;
+package com.portal.complex.board.vo;
 
 public class BoardVo {
 	private long nid;

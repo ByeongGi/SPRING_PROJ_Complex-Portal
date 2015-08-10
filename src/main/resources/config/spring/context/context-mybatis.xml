@@ -21,7 +21,7 @@
 		<property name="configLocation"
 			value="classpath:config/spring/context/mybatis-config-base.xml" />
 		<property name="mapperLocations" 
-		    value="classpath*:config/spring/mapper/*.xml"/>
+		    value="classpath*:config/spring/mapper_MariaDB/*.xml"/>
 	</bean>
 	
     <!-- sqlSession  인터페이스를 대신 구현하는 sqlSession 구현 -->

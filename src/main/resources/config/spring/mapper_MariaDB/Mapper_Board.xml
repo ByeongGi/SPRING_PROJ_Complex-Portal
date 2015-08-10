@@ -15,15 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="sss" parameterType="java.util.HashMap" resultType="com.portal.complex.board.vo.BoardVo">
-		<![CDATA[ 
-		SELECT *
-  			FROM (SELECT ROWNUM AS RNUM, Z.* 
-    			FROM (SELECT * 
-        			FROM TBL_BOARD 
-        			ORDER BY NID DESC) Z 
-    			WHERE ROWNUM <=#{record_end_no}) 
-  		WHERE RNUM >=#{record_Start_no}
-  		]]>
+		SELECT * FROM TBL_BOARD ORDER BY C_DATE DESC LIMIT #{record_Start_no},10;
 	</select>
 	<select id="READ" parameterType="int" resultType="com.portal.complex.board.vo.BoardVo">
 		SELECT * 
@@ -51,16 +43,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="SEARCH" parameterType="java.util.HashMap" resultType="com.portal.complex.board.vo.BoardVo">
-		<![CDATA[ 
-		SELECT *
-  			FROM (SELECT ROWNUM AS RNUM, Z.* 
-    			FROM (SELECT * FROM TBL_BOARD
-						where 1 = 1
-						AND ${keyword} LIKE '%${searchWord}%'
-						ORDER BY NID DESC) Z 
-    			WHERE ROWNUM <=#{record_end_no}) 
-  		WHERE RNUM >=#{record_Start_no}
-  		]]>
+    	SELECT * 
+    	FROM TBL_BOARD 
+    	where 1 = 1 
+    	AND ${keyword} 
+    	LIKE '%${searchWord}%'
+		ORDER BY NID DESC 
+		LIMIT #{record_Start_no},10
 	</select>
 	
 	<insert id="INSERT" parameterType="com.portal.complex.board.vo.BoardVo">

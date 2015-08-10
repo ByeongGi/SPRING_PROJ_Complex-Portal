@@ -1,11 +1,13 @@
-package com.portal.complex.boardManager.Dao;
+package com.portal.complex.board.dao;
 
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Repository
 public class BoardManagerDaoImp implements BoardManagerDao{
 	

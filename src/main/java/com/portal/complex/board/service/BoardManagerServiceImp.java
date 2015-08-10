@@ -1,4 +1,4 @@
-package com.portal.complex.boardManager.service;
+package com.portal.complex.board.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +9,8 @@ import oracle.net.aso.p;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.portal.complex.boardManager.Dao.BoardManagerDao;
-import com.portal.complex.boardVo.BoardVo;
+import com.portal.complex.board.dao.BoardManagerDao;
+import com.portal.complex.board.vo.BoardVo;
 import com.portal.complex.utill.PagingUtill;
 
 @Service
@@ -79,6 +79,7 @@ public class BoardManagerServiceImp implements BoardManagerService{
 		int page_per_record_cnt=10; // 페이지 당 레코드 수
 		int group_per_page_cnt=5; // 페이지당 보여줄 번호수 [1],[2],[3}
 		int pageno=(int) paramMap.get("currentpage"); // 현재 화면의 페이지 번호		
+		System.out.println("page number" + pageno);
 		int total_record = (int) dao.board_recordConut("Board.SEARCH_TOTALRECOND",paramMap); 
 		
 		// 페이지 유틸 실행
